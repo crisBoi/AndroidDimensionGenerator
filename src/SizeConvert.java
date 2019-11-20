@@ -50,7 +50,7 @@ class Pixel {
 
 
     enum ScreenSize {
-        hdpi(3.0f / 6.0f), mhdpi(4.0f / 6.0f), xhdpi(1f), xxhdpi(8.0f / 6.0f), xxxhdpi(12.0f / 6.0f);
+        hdpi(3.0f / 8.0f), mhdpi(4.0f / 8.0f), xhdpi(6.0f / 8.0f), xxhdpi(1f), xxxhdpi(12.0f / 8.0f);
         private float ratio;
 
         ScreenSize(float ratio) {
