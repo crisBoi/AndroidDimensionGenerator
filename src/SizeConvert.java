@@ -1,35 +1,121 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.IllegalFormatConversionException;
+
 public class SizeConvert {
+    public static  BufferedReader br;
     public static void main(String[] args) {
         float hdpi, xhdpi, xxhdpi, xxxhdpi, xlhdpi;
 
         Pixel pixel = new Pixel();
-        pixel.setDp(200f);
-        pixel.setName("_200");
-        pixel.setType(Pixel.Type.densityPixel_dp);
 
-        pixel.setScreenSize(Pixel.ScreenSize.hdpi);
-        pixel.print();
-        pixel.setScreenSize(Pixel.ScreenSize.mhdpi);
-        pixel.print();
-        pixel.setScreenSize(Pixel.ScreenSize.xhdpi);
-        pixel.print();
-        pixel.setScreenSize(Pixel.ScreenSize.xxhdpi);
-        pixel.print();
-        pixel.setScreenSize(Pixel.ScreenSize.xxxhdpi);
-        pixel.print();
+         br = new BufferedReader(new InputStreamReader(System.in));
+
+         pixel.setDp(readValue());
+         pixel.setName(readName());
+         pixel.setScreenSize(getDensity());
+         pixel.setType(Pixel.Type.densityPixel_dp);
+         pixel.print();
 
 
-        /*//print list
-        pixel.setScreenSize(Pixel.ScreenSize.hdpi);
-        pixel.setType(Pixel.Type.densityPixel_dp);
-        for (float i = 1; i <= 100; i++) {
-            pixel.setName("_" + String.format("%.0f", i));
-            pixel.setDp(i);
-            pixel.print();
-
-        }*/
 
     }
+
+
+    public static float readValue() {
+        float dp = 0.00f;
+
+        try {
+            boolean isNumeric = true;
+            System.out.println("Please enter the value");
+
+
+            do {
+                try {
+                    String sr = br.readLine();
+                    System.out.println(sr);
+                    dp = Float.parseFloat(sr);
+                    sr = String.format("%.2f", dp);
+                    isNumeric = false;
+                } catch (IllegalFormatConversionException e) {
+                    System.out.println("Not a number, please enter a valid number: ");
+                }
+            } while (isNumeric);
+
+        } catch (Exception e) {
+            System.out.println("IO exception caused");
+        }
+
+        return dp;
+
+    }
+
+    public static String readName() {
+        String sr = "default_name";
+        try {
+            boolean isNumeric = true;
+            System.out.println("Please enter the name of dimension");
+
+
+                    sr = br.readLine();
+                    System.out.println(sr);
+                    sr = sr.trim();
+                    isNumeric = false;
+
+        } catch (Exception e) {
+            System.out.println("IO exception caused");
+        }
+
+        return sr;
+
+    }
+
+    public static Pixel.ScreenSize getDensity() {
+        int choice = -1;
+
+
+        do {
+            clearScreen();
+            System.out.println("Please select an option");
+            System.out.println("1. hdpi");
+            System.out.println("2. mhdpi");
+            System.out.println("3. xhdpi");
+            System.out.println("4. xxhdpi");
+            System.out.println("5. xxxhdpi");
+
+            if (choice == -1) {
+                System.out.println("Please enter a valid choice");
+            }
+
+            try {
+                String sr = br.readLine();
+                choice = Integer.parseInt(sr);
+                if (choice > 5 || choice == 0) choice = -1;
+            } catch (IOException e) {
+                e.printStackTrace();
+                choice = -1;
+                System.out.println("Please enter a valid choice");
+            }
+        } while (choice == 5);
+
+        switch (choice) {
+            case 1: return Pixel.ScreenSize.hdpi;
+            case 2: return Pixel.ScreenSize.mhdpi;
+            case 3: return Pixel.ScreenSize.xhdpi;
+            case 4: return Pixel.ScreenSize.xxhdpi;
+            case 5: return Pixel.ScreenSize.xxxhdpi;
+        }
+
+        return Pixel.ScreenSize.xxxhdpi;
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+
 }
 
 class Pixel {
