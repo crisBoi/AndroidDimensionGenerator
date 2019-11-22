@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fbacef45-a761-4cfc-9890-71e0455b8a53" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SizeConversion/SizeConvert.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SizeConversion/SizeConvert.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SizeConvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SizeConvert.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

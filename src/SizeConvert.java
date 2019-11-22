@@ -6,7 +6,7 @@ import java.util.IllegalFormatConversionException;
 public class SizeConvert {
     public static  BufferedReader br;
     public static void main(String[] args) {
-        float hdpi, xhdpi, xxhdpi, xxxhdpi, xlhdpi;
+
 
         Pixel pixel = new Pixel();
 
@@ -34,11 +34,12 @@ public class SizeConvert {
             do {
                 try {
                     String sr = br.readLine();
-                    System.out.println(sr);
                     dp = Float.parseFloat(sr);
                     sr = String.format("%.2f", dp);
                     isNumeric = false;
                 } catch (IllegalFormatConversionException e) {
+                    System.out.println("Not a number, please enter a valid number: ");
+                } catch (NumberFormatException e) {
                     System.out.println("Not a number, please enter a valid number: ");
                 }
             } while (isNumeric);
@@ -58,12 +59,14 @@ public class SizeConvert {
             System.out.println("Please enter the name of dimension");
 
 
-                    sr = br.readLine();
-                    System.out.println(sr);
-                    sr = sr.trim();
-                    isNumeric = false;
+            do {
+                sr = br.readLine();
+                if (!checkValidName(sr)) {
+                    System.out.println("Please enter a valid name.\nNo special character allowed except '_'");
+                }
+            } while (!checkValidName(sr));
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("IO exception caused");
         }
 
@@ -113,6 +116,26 @@ public class SizeConvert {
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public static boolean checkValidName(String str) {
+        boolean isValid = true;
+
+        char[] arr = str.toCharArray();
+
+        for (char c: arr ) {
+
+            isValid = ((c >= 'a') && (c <= 'z')) ||
+                    ((c >= 'A') && (c <= 'Z')) ||
+                    ((c >= '0') && (c <= '9')) ||
+                    c == '_';
+
+            if (!isValid) {
+                break;
+            }
+        }
+
+        return isValid;
     }
 
 
