@@ -14,9 +14,16 @@ public class SizeConvert {
 
          pixel.setDp(readValue());
          pixel.setName(readName());
-         pixel.setScreenSize(getDensity());
          pixel.setType(Pixel.Type.densityPixel_dp);
-         pixel.print();
+        Pixel.ScreenSize screenSize = getDensity();
+         if (screenSize != null) {
+             pixel.setScreenSize(screenSize);
+         } else {
+             pixel.printAll();
+         }
+
+         pixel.setType(Pixel.Type.densityPixel_dp);
+//         pixel.print();
 
 
 
@@ -79,28 +86,27 @@ public class SizeConvert {
 
 
         do {
-            clearScreen();
+
             System.out.println("Please select an option");
             System.out.println("1. hdpi");
             System.out.println("2. mhdpi");
             System.out.println("3. xhdpi");
             System.out.println("4. xxhdpi");
             System.out.println("5. xxxhdpi");
+            System.out.println("6. Select all");
 
-            if (choice == -1) {
-                System.out.println("Please enter a valid choice");
-            }
+
 
             try {
                 String sr = br.readLine();
                 choice = Integer.parseInt(sr);
-                if (choice > 5 || choice == 0) choice = -1;
+                if (choice > 6 || choice == 0) choice = -1;
             } catch (IOException e) {
                 e.printStackTrace();
                 choice = -1;
                 System.out.println("Please enter a valid choice");
             }
-        } while (choice == 5);
+        } while (choice == -1);
 
         switch (choice) {
             case 1: return Pixel.ScreenSize.hdpi;
@@ -108,6 +114,7 @@ public class SizeConvert {
             case 3: return Pixel.ScreenSize.xhdpi;
             case 4: return Pixel.ScreenSize.xxhdpi;
             case 5: return Pixel.ScreenSize.xxxhdpi;
+            case 6: return null;
         }
 
         return Pixel.ScreenSize.xxxhdpi;
@@ -207,6 +214,16 @@ class Pixel {
 
     public void print() {
         System.out.println("<dimen name=\"" + name + "\">" + String.format("%.2f", (screenSize.getRatio() * dp)) + type.type + "</dimen>");
+    }
+
+    public void printAll() {
+      for (ScreenSize s: ScreenSize.values()) {
+          try {
+              System.out.println("<dimen name=\"" + name + "\">" + String.format("%.2f", (s.getRatio() * dp)) + type.type + "</dimen>");
+          } catch (NullPointerException e) {
+              System.out.println(e);
+          }
+      }
     }
 
 
